@@ -5,6 +5,17 @@
   "description": "Summarize any page into crisp bullet points using your own LLM API key.",
   "author": "kanishk",
 
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "texum@kanishkmehta",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": [],
+        "optional": []
+      }
+    }
+  },
+
   "icons": {
     "48": "icons/icon48.png",
     "96": "icons/icon96.png"

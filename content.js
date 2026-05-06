@@ -33,8 +33,15 @@
                          <path d="M12 9v4"/><path d="M12 17h.01"/>
                        </svg>`
     };
+    // ─── Safe SVG helper ──────────────────────────────────────────────────────
+    // Parses an SVG string into a real DOM node — avoids innerHTML on elements.
+    function svgEl(svgString) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgString, "image/svg+xml");
+        return doc.documentElement;
+    }
 
-    // ─── Text extractor ───────────────────────────────────────────────────────
+
     function extractPageText() {
         const SKIP_TAGS = new Set([
             "SCRIPT", "STYLE", "NOSCRIPT", "IFRAME", "OBJECT",
@@ -178,7 +185,7 @@
             color: "#fff",
             flexShrink: "0"
         });
-        logoBox.innerHTML = ICONS.zap;
+        logoBox.appendChild(svgEl(ICONS.zap));
 
         const name = document.createElement("span");
         name.textContent = "TeXuM";
@@ -196,7 +203,7 @@
         const closeBtn = document.createElement("button");
         closeBtn.id = "texum-close-btn";
         closeBtn.setAttribute("aria-label", "Close summary panel");
-        closeBtn.innerHTML = ICONS.x;
+        closeBtn.appendChild(svgEl(ICONS.x));
         Object.assign(closeBtn.style, {
             display: "flex",
             alignItems: "center",
@@ -230,12 +237,25 @@
         body.style.padding = "14px";
 
         if (state === "loading") {
-            body.innerHTML = `
-                <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px 0;color:#8896a5;">
-                    <div style="color:#000000;">${ICONS.loader}</div>
-                    <span style="font-size:12px;letter-spacing:0.02em;">Extracting &amp; summarizing…</span>
-                </div>
-            `;
+            const loadWrap = document.createElement("div");
+            Object.assign(loadWrap.style, {
+                display: "flex", flexDirection: "column",
+                alignItems: "center", gap: "12px",
+                padding: "20px 0", color: "#8896a5"
+            });
+
+            const spinWrap = document.createElement("div");
+            spinWrap.style.color = "#000000";
+            spinWrap.appendChild(svgEl(ICONS.loader));
+            loadWrap.appendChild(spinWrap);
+
+            const loadText = document.createElement("span");
+            loadText.textContent = "Extracting \u0026 summarizing\u2026";
+            loadText.style.fontSize = "12px";
+            loadText.style.letterSpacing = "0.02em";
+            loadWrap.appendChild(loadText);
+
+            body.appendChild(loadWrap);
         } else if (state === "bullets") {
             const { bullets, provider, model } = content;
 
@@ -270,7 +290,11 @@
                 borderRadius: "6px",
                 color: "#dc2626"
             });
-            box.innerHTML = `<span style="flex-shrink:0;margin-top:1px;">${ICONS.alertTriangle}</span>`;
+            const iconWrap = document.createElement("span");
+            iconWrap.style.flexShrink = "0";
+            iconWrap.style.marginTop = "1px";
+            iconWrap.appendChild(svgEl(ICONS.alertTriangle));
+            box.appendChild(iconWrap);
 
             const msg = document.createElement("span");
             msg.textContent = content;
