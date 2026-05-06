@@ -1,0 +1,388 @@
+/* ── Reset ────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #ffffff;
+    --surface: #f5f5f5;
+    --surface-hover: #ebebeb;
+    --border: #e0e0e0;
+    --border-dark: #bdbdbd;
+    --accent: #000000;
+    --accent-hover: #222222;
+    --text: #111111;
+    --text-muted: #555555;
+    --text-dim: #999999;
+    --danger: #dc2626;
+    --success: #16a34a;
+    --radius: 8px;
+    --radius-sm: 5px;
+    --font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+html {
+    font-size: 13px;
+}
+
+body {
+    width: 360px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.55;
+    overflow-x: hidden;
+    border: 1px solid var(--border);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px 13px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    border-radius: 6px;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.logo-icon svg {
+    display: block;
+}
+
+.logo-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.04em;
+}
+
+.logo-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 400;
+    margin-top: 1px;
+}
+
+/* ── Summarize button ────────────────────────────────────────────────────── */
+.action-section {
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.btn-summarize {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 14px;
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.15s, opacity 0.15s;
+}
+
+.btn-summarize:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.btn-summarize:active:not(:disabled) {
+    opacity: 0.85;
+}
+
+.btn-summarize:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btn-summarize svg {
+    flex-shrink: 0;
+}
+
+.hint-text {
+    margin-top: 7px;
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: center;
+}
+
+/* ── Settings toggle button ──────────────────────────────────────────────── */
+.btn-toggle-settings {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 16px;
+    background: var(--bg);
+    border: none;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.15s, color 0.15s;
+    text-align: left;
+}
+
+.btn-toggle-settings:hover {
+    background: var(--surface);
+    color: var(--text);
+}
+
+.btn-toggle-settings.open {
+    color: var(--text);
+    background: var(--surface);
+}
+
+/* ── Collapsible settings panel ──────────────────────────────────────────── */
+.settings-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+}
+
+.settings-panel.open {
+    max-height: 600px;
+}
+
+
+.section-label {
+    padding: 11px 16px 5px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* ── Form ────────────────────────────────────────────────────────────────── */
+#settings-form {
+    padding: 0 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.field-row {
+    display: flex;
+    gap: 8px;
+}
+
+.flex-1 {
+    flex: 1;
+    min-width: 0;
+}
+
+.field-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.field-label svg {
+    color: var(--text-dim);
+    flex-shrink: 0;
+}
+
+.field-hint {
+    font-weight: 400;
+    text-transform: none;
+    color: var(--text-dim);
+    letter-spacing: 0;
+    font-size: 10.5px;
+    margin-left: 3px;
+}
+
+/* Inputs & selects */
+input[type="text"],
+input[type="password"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 7px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 12.5px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+input::placeholder {
+    color: var(--text-dim);
+    font-size: 11.5px;
+}
+
+/* Select */
+.select-wrap {
+    position: relative;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+/* Input + icon button */
+.input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrap input {
+    padding-right: 34px;
+}
+
+.icon-btn {
+    position: absolute;
+    right: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-dim);
+    padding: 4px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    transition: color 0.15s, background 0.15s;
+}
+
+.icon-btn:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+}
+
+/* Number — hide spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* ── Save button ─────────────────────────────────────────────────────────── */
+.btn-save {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px;
+    margin-top: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    font-family: var(--font);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.btn-save:hover {
+    border-color: var(--border-dark);
+    color: var(--text);
+    background: var(--surface-hover);
+}
+
+.btn-save:active {
+    opacity: 0.8;
+}
+
+/* ── Status ──────────────────────────────────────────────────────────────── */
+.status-msg {
+    min-height: 15px;
+    font-size: 11.5px;
+    text-align: center;
+    color: var(--text-dim);
+    transition: color 0.2s;
+}
+
+.status-msg.success {
+    color: var(--success);
+}
+
+.status-msg.error {
+    color: var(--danger);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-dark);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-dim);
+}
